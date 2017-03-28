@@ -1,5 +1,7 @@
 package css.cis3334.unit9participation_menus;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,8 +69,28 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_add) {
+            Toast.makeText(getApplicationContext(), "Adding study mates is not available yet.",
+                    Toast.LENGTH_LONG).show();
+        } else if (id == R.id.action_delete) {
+            Toast.makeText(getApplicationContext(), "Deleting a study mate is not available yet.",
+                    Toast.LENGTH_LONG).show();
+        } else if (id == R.id.action_email) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else if (id == R.id.action_SMS) {
+                Intent intent2 = new Intent(Intent.ACTION_SEND);
+                intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+
+                if (intent.resolveActivity(getPackageManager()) != null)
+                    startActivity(intent);
+            }
+
             return true;
         }
 
@@ -87,12 +110,31 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+        } else if (id == R.id.nav_add) {
+            Toast.makeText(getApplicationContext(), "Adding study mates is not available yet.",
+                    Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_delete) {
+            Toast.makeText(getApplicationContext(), "Deleting a study mate is not available yet.",
+                    Toast.LENGTH_LONG).show();
+            } else if (id == R.id.nav_sms) {
+                Intent intent2 = new Intent(Intent.ACTION_SEND);
+                intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+                if (intent.resolveActivity(getPackageManager()) != null)
+                    startActivity(intent);
+            }
 
+            return true;
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
